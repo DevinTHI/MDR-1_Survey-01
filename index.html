@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#1A1830" />
+<title>Planet Dashboard · Cycle 1 Survey · MDR Thesis</title>
+<meta name="description" content="Post-probe survey for the Planetary Boundaries comparative study · MDR Thesis · Keio Graduate School of Media Design" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-page: #F6F4FB;
+    --bg-card: #ffffff;
+    --bg-soft: #F1ECFA;
+    --ink: #1A1830;
+    --ink-soft: #6F6B85;
+    --ink-faint: #B0ADC2;
+    --border: rgba(108, 92, 231, 0.10);
+    --purple: #6C5CE7;
+    --teal: #0EBFD9;
+    --coral: #FF7B5C;
+    --green: #2EB36B;
+    --r-md: 14px;
+    --r-lg: 20px;
+    --shadow-md: 0 8px 24px rgba(26, 24, 48, 0.07);
+    --shadow-lg: 0 24px 60px rgba(26, 24, 48, 0.12);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg-page); color: var(--ink); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.55; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  body { background-image: radial-gradient(circle at 20% 0%, rgba(108,92,231,0.06), transparent 50%), radial-gradient(circle at 80% 100%, rgba(14,191,217,0.06), transparent 50%); }
+
+  .app { max-width: 760px; margin: 0 auto; padding: 48px 24px 60px; min-height: 100vh; display: flex; flex-direction: column; }
+
+  .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo .dot { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--teal)); display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 6px 18px rgba(108,92,231,0.25); }
+  .logo .name { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 17px; letter-spacing: -0.3px; }
+  .logo .meta { font-size: 11.5px; color: var(--ink-faint); font-weight: 500; margin-top: 1px; }
+
+  .hero { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 44px 40px; box-shadow: var(--shadow-lg); animation: in 0.5s var(--ease-out) both; }
+  @keyframes in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  .eyebrow { font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; color: var(--purple); text-transform: uppercase; margin-bottom: 14px; }
+  h1 { font-family: 'Source Serif Pro', serif; font-size: 38px; font-weight: 600; letter-spacing: -0.6px; line-height: 1.18; margin-bottom: 18px; }
+  .lede { font-size: 17px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 26px; max-width: 540px; }
+
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 32px; }
+  .feature { background: var(--bg-soft); border-radius: 14px; padding: 18px 18px; }
+  .feature .icon { font-size: 22px; margin-bottom: 8px; line-height: 1; }
+  .feature .label { font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 700; color: var(--purple); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+  .feature .v { font-weight: 700; font-size: 14px; color: var(--ink); }
+
+  .reassurance { background: rgba(46,179,107,0.08); border-left: 3px solid var(--green); padding: 14px 18px; border-radius: 10px; margin-bottom: 28px; font-size: 13.5px; color: var(--ink); line-height: 1.55; }
+  .reassurance b { color: var(--green); font-weight: 700; }
+
+  .start { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--purple), var(--teal)); color: #fff; padding: 18px 32px; border-radius: 999px; font-size: 16px; font-weight: 700; text-decoration: none; box-shadow: 0 14px 32px rgba(108,92,231,0.35); transition: all 0.18s var(--ease-out); }
+  .start:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(108,92,231,0.45); }
+  .start .arrow { font-size: 20px; transition: transform 0.18s; }
+  .start:hover .arrow { transform: translateX(3px); }
+
+  .footer { margin-top: auto; padding-top: 40px; text-align: center; font-size: 12px; color: var(--ink-faint); line-height: 1.6; }
+  .footer b { color: var(--ink-soft); font-weight: 600; }
+
+  @media (max-width: 600px) {
+    .app { padding: 28px 16px 40px; }
+    .hero { padding: 30px 22px; }
+    h1 { font-size: 28px; }
+    .lede { font-size: 15px; }
+    .features { grid-template-columns: 1fr; gap: 10px; }
+    .start { width: 100%; justify-content: center; padding: 16px 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="logo">
+      <div class="dot">🌍</div>
+      <div>
+        <div class="name">Planet Dashboard</div>
+        <div class="meta">Cycle 1 Survey · MDR Thesis · Keio Media Design</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">Welcome</div>
+    <h1>Help shape how we tell the planet's story.</h1>
+    <p class="lede">
+      You've just experienced five short prototypes showing the Planetary Boundaries in different ways. This survey asks you to rate each one, then leads to a second short survey about how you interacted with them. Together, your responses help identify which combination of language and interaction makes the planet's situation feel most real and meaningful.
+    </p>
+
+    <div class="features">
+      <div class="feature">
+        <div class="icon">⏱️</div>
+        <div class="label">Time</div>
+        <div class="v">≈ 10 minutes total</div>
+      </div>
+      <div class="feature">
+        <div class="icon">🔒</div>
+        <div class="label">Privacy</div>
+        <div class="v">No name, no email</div>
+      </div>
+      <div class="feature">
+        <div class="icon">📥</div>
+        <div class="label">Your data</div>
+        <div class="v">Stays on your device</div>
+      </div>
+    </div>
+
+    <div class="reassurance">
+      <b>What we collect.</b> Your age range, your gender, and the country you're from — no name, no email, no contact details. You'll see your own results at the end of each survey and can download them as a file.
+    </div>
+
+    <a class="start" href="Cycle1A_Survey.html">
+      Start the survey
+      <span class="arrow">→</span>
+    </a>
+  </section>
+
+  <footer class="footer">
+    <b>Devin De Mel</b>  ·  MDR Thesis  ·  Keio Graduate School of Media Design  ·  2026<br>
+    <em style="font-style: normal; color: var(--ink-faint);">Toward a Sustainability-Aware Digital Interaction Design  ·  Cycle 1 · Comparative Probing</em>
+  </footer>
+
+</div>
+</body>
+</html>
