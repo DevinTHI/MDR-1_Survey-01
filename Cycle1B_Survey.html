@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#1A1830" />
+<title>Cycle 1B · Interaction Paradigm Survey · MDR Thesis</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-page: #F6F4FB;
+    --bg-card: #ffffff;
+    --bg-soft: #F1ECFA;
+    --ink: #1A1830;
+    --ink-soft: #6F6B85;
+    --ink-faint: #B0ADC2;
+    --border: rgba(108, 92, 231, 0.10);
+    --purple: #6C5CE7;
+    --purple-soft: #EDE9FC;
+    --teal: #0EBFD9;
+    --teal-soft: #DDF5F9;
+    --coral: #FF7B5C;
+    --green: #2EB36B;
+    --r-md: 14px;
+    --r-lg: 20px;
+    --shadow-sm: 0 2px 8px rgba(26, 24, 48, 0.05);
+    --shadow-md: 0 8px 24px rgba(26, 24, 48, 0.07);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg-page); color: var(--ink); font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.5; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  button, input, select, textarea { font-family: inherit; }
+  button { cursor: pointer; }
+  .app { max-width: 720px; margin: 0 auto; padding: 32px 24px 60px; }
+
+  .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: -0.3px; }
+  .logo .dot { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--purple)); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .logo .meta { font-size: 11px; color: var(--ink-faint); font-weight: 500; }
+
+  .framing-banner { display: flex; align-items: center; gap: 12px; padding: 12px 18px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 999px; box-shadow: var(--shadow-sm); margin-bottom: 18px; font-size: 13px; }
+  .framing-banner .badge { width: 26px; height: 26px; border-radius: 7px; background: var(--coral); color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 12px; }
+  .framing-banner b { font-weight: 700; }
+  .framing-banner em { font-style: normal; color: var(--ink-faint); font-size: 12px; margin-left: 4px; }
+
+  .progress { padding: 0 4px; margin-bottom: 18px; }
+  .progress .track { height: 4px; background: rgba(14,191,217,0.10); border-radius: 999px; overflow: hidden; }
+  .progress .fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--purple)); border-radius: 999px; transition: width 0.4s var(--ease-out); }
+  .progress .label { font-size: 11px; color: var(--ink-faint); margin-top: 6px; text-align: center; font-weight: 600; letter-spacing: 0.04em; }
+
+  .scene { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-md); padding: 32px 28px; margin-bottom: 18px; animation: in 0.4s var(--ease-out) both; }
+  @keyframes in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .eyebrow { font-family: 'Manrope', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; color: var(--teal); text-transform: uppercase; margin-bottom: 10px; }
+  .scene h1 { font-family: 'Source Serif Pro', serif; font-size: 28px; font-weight: 600; letter-spacing: -0.4px; line-height: 1.25; margin-bottom: 12px; }
+  .scene h2 { font-family: 'Manrope', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.3; margin-bottom: 8px; }
+  .scene .lede { font-size: 14.5px; color: var(--ink-soft); margin-bottom: 22px; line-height: 1.55; }
+
+  .q { margin-bottom: 22px; }
+  .q .label { font-size: 14.5px; font-weight: 600; color: var(--ink); margin-bottom: 12px; line-height: 1.4; }
+
+  .likert { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .likert button { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 4px; font-size: 12px; font-weight: 600; color: var(--ink-soft); transition: all 0.15s; }
+  .likert button:hover { border-color: var(--teal); }
+  .likert button.on { background: var(--teal); color: #fff; border-color: var(--teal); transform: scale(1.04); }
+  .likert button .num { font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 800; display: block; }
+  .likert-ends { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--ink-faint); margin-top: 6px; padding: 0 4px; }
+
+  .paradigm-head { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--teal-soft); border-radius: 12px; margin-bottom: 22px; }
+  .paradigm-head .badge { width: 40px; height: 40px; border-radius: 10px; background: var(--teal); color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 14px; }
+  .paradigm-head .nm { font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.2px; }
+  .paradigm-head .em { font-size: 12px; color: var(--ink-faint); font-style: italic; }
+
+  .nav { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; gap: 12px; }
+  .nav button { padding: 14px 26px; border-radius: 999px; font-size: 14px; font-weight: 700; border: none; transition: all 0.15s; }
+  .nav .back { background: var(--bg-card); color: var(--ink-soft); border: 1px solid var(--border); }
+  .nav .next { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; box-shadow: 0 6px 18px rgba(14,191,217,0.35); }
+  .nav .next:hover:not(:disabled) { transform: translateY(-1px); }
+  .nav .submit { background: var(--coral); color: #fff; box-shadow: 0 6px 18px rgba(255, 123, 92, 0.4); }
+  .nav button:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .result-winner { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; padding: 40px 32px; border-radius: var(--r-lg); text-align: center; margin-bottom: 18px; box-shadow: 0 20px 50px rgba(14,191,217,0.25); }
+  .result-winner .small { font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; opacity: 0.85; margin-bottom: 10px; }
+  .result-winner .number { font-family: 'Manrope', sans-serif; font-size: 88px; font-weight: 800; line-height: 1; margin-bottom: 8px; letter-spacing: -3px; }
+  .result-winner .nm { font-family: 'Source Serif Pro', serif; font-size: 32px; font-weight: 600; letter-spacing: -0.5px; }
+  .result-winner .em { font-size: 14px; opacity: 0.9; margin-top: 6px; }
+
+  .scoreboard { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+  .score-row { display: grid; grid-template-columns: 44px 1fr 70px; align-items: center; gap: 14px; padding: 14px 16px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); }
+  .score-row.top { background: linear-gradient(90deg, rgba(14,191,217,0.06), transparent); border-color: rgba(14,191,217,0.3); }
+  .score-row .badge { width: 36px; height: 36px; border-radius: 8px; background: var(--teal-soft); color: var(--teal); display: flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 14px; }
+  .score-row.top .badge { background: var(--teal); color: #fff; }
+  .score-row .nm { font-weight: 700; font-size: 14px; }
+  .score-row .sub { font-size: 11px; color: var(--ink-faint); }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-top: 5px; }
+  .bar { flex: 1; height: 6px; background: rgba(14,191,217,0.10); border-radius: 999px; overflow: hidden; }
+  .bar .fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--purple)); border-radius: 999px; transition: width 0.5s var(--ease-out); }
+  .score-row .v { font-family: 'Manrope', sans-serif; font-size: 22px; font-weight: 800; text-align: right; letter-spacing: -0.5px; color: var(--ink); }
+  .score-row.top .v { color: var(--teal); }
+  .sub-chips { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  .sub-chip { font-size: 11px; color: var(--ink-faint); letter-spacing: 0.04em; }
+  .sub-chip b { color: var(--ink-soft); font-weight: 700; margin-right: 3px; }
+  .score-row.top .sub-chip b { color: var(--teal); }
+  .dim-legend { display: flex; flex-wrap: wrap; gap: 16px; padding: 12px 16px; background: var(--teal-soft); border-radius: 10px; font-size: 11.5px; color: var(--ink-soft); margin-bottom: 14px; }
+  .dim-legend b { color: var(--ink); font-weight: 700; }
+  .sync-banner { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: 600; margin-bottom: 14px; }
+  .sync-banner.sending { background: var(--bg-soft); color: var(--ink-soft); }
+  .sync-banner.ok      { background: rgba(46,179,107,0.10); color: var(--green); }
+  .sync-banner.err     { background: rgba(255,123,92,0.12); color: var(--coral); }
+  .sync-banner.off     { background: var(--bg-soft); color: var(--ink-faint); font-weight: 500; }
+  .sync-banner .spinner { width: 14px; height: 14px; border: 2px solid rgba(14,191,217,0.25); border-top-color: var(--teal); border-radius: 50%; animation: spin 0.9s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .result-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; }
+  .result-actions button { padding: 16px 22px; border-radius: 14px; font-size: 15px; font-weight: 700; border: none; cursor: pointer; transition: all 0.15s; }
+  .result-actions .primary { background: linear-gradient(135deg, var(--coral), #FFC862); color: #fff; box-shadow: 0 8px 22px rgba(255,123,92,0.3); }
+  .result-actions .primary:hover { transform: translateY(-1px); }
+  .result-actions .secondary { background: var(--bg-card); color: var(--ink); border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .result-actions .secondary:hover { border-color: var(--teal); }
+
+  .result-note { padding: 16px 20px; background: var(--teal-soft); border-radius: 12px; font-size: 13px; color: var(--ink-soft); line-height: 1.55; margin-top: 18px; }
+  .result-note b { color: var(--ink); }
+
+  .warning { background: #FFF1ED; border: 1px solid rgba(255,123,92,0.3); border-radius: 12px; padding: 16px 20px; margin-bottom: 18px; font-size: 13px; color: var(--ink); }
+  .warning b { color: var(--coral); }
+
+  @media (max-width: 600px) {
+    .app { padding: 18px 14px 40px; }
+    .scene { padding: 22px 18px; }
+    .likert button { padding: 12px 2px; }
+    .likert button .num { font-size: 16px; }
+    .result-winner .number { font-size: 64px; }
+    .result-winner .nm { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="logo">
+      <div class="dot">⚙️</div>
+      <div>
+        <div>Planet Dashboard</div>
+        <div class="meta">Cycle 1B · Interaction Paradigm Survey · MDR Thesis</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="framing-banner" id="framing-banner" style="display:none">
+    <div class="badge" id="fb-letter">·</div>
+    <span>Held constant: <b id="fb-name">—</b> <em id="fb-em">—</em></span>
+  </div>
+
+  <div class="progress" id="progress-wrap">
+    <div class="track"><div class="fill" id="progress-fill" style="width: 14%"></div></div>
+    <div class="label" id="progress-label">Step 1 of 7</div>
+  </div>
+
+  <div id="stage"></div>
+
+  <div class="nav" id="nav">
+    <button class="back" id="back-btn" disabled>← Back</button>
+    <button class="next" id="next-btn">Next →</button>
+  </div>
+</div>
+
+<script>
+// ============================================
+// CONFIG
+// ============================================
+const FRAMINGS = {
+  A: { label: "A · Scientific",  em: "expert source register" },
+  B: { label: "B · Hybrid",      em: "bilingual bridge" },
+  C: { label: "C · Everyday",    em: "vernacular comprehension" },
+  D: { label: "D · Narrative",   em: "first-person address" },
+  E: { label: "E · Poetic",      em: "compressed image" },
+};
+const PARADIGMS = {
+  "01": { label: "01 · Direct Manipulation",   em: "Configurator — sliders, dials, live response.", description: "The version where you adjusted values directly with sliders and saw the planet respond." },
+  "02": { label: "02 · Estimate-Reveal",       em: "Predict, then see.",                              description: "The version where you predicted a value first, committed it, and then saw the actual reading." },
+  "03": { label: "03 · Conversational",        em: "Dialogue partner.",                              description: "The version where you talked with the planet — asking questions and getting answers." },
+  "04": { label: "04 · Narrative Progression", em: "Audience — system-led pacing.",                  description: "The version that played out scene by scene, on its own timing." },
+  "05": { label: "05 · Ambient",               em: "Bystander — peripheral attention.",              description: "The version that was slow, atmospheric, asking you to just notice." },
+};
+const ORDER = ["01","02","03","04","05"];
+
+// ============================================
+// GOOGLE SHEETS BACKEND (optional)
+// Paste your Apps Script Web App URL between the quotes to enable.
+// If left empty, the survey still works — just no remote logging.
+// See GoogleSheets_AppsScript.gs and Surveys_README.md for setup.
+// ============================================
+const SHEETS_ENDPOINT = "";  // e.g. "https://script.google.com/macros/s/AKfycb.../exec"
+
+const QUESTIONS = [
+  { id: "cognitive",    dim: "Cognitive",    short: "Cog", label: "How well did this interaction help you understand the planet's situation?",                  endsLeft: "Not at all", endsRight: "Very well" },
+  { id: "affective",    dim: "Affective",    short: "Aff", label: "How emotionally engaged were you during this interaction?",                                  endsLeft: "Not at all", endsRight: "Deeply" },
+  { id: "memorability", dim: "Memorability", short: "Mem", label: "How likely are you to remember what you experienced through this interaction a week from now?", endsLeft: "Unlikely",    endsRight: "Very likely" },
+  { id: "intentional",  dim: "Intentional",  short: "Int", label: "How likely are you to want to use this kind of interaction again — or share it with someone?", endsLeft: "Unlikely",    endsRight: "Very likely" },
+];
+
+// ============================================
+// READ URL PARAMS (framing held constant + demographics carried over from Cycle 1A)
+// ============================================
+const urlParams = new URLSearchParams(location.search);
+const heldFraming = (urlParams.get("framing") || "").toUpperCase();
+const carriedDemo = {
+  age: urlParams.get("age") || "",
+  gender: urlParams.get("gender") || "",
+  from: urlParams.get("from") || "",
+};
+const carriedPid = urlParams.get("pid") || ("p" + Date.now().toString(36));
+
+if (FRAMINGS[heldFraming]) {
+  const fr = FRAMINGS[heldFraming];
+  document.getElementById("framing-banner").style.display = "flex";
+  document.getElementById("fb-letter").textContent = heldFraming;
+  document.getElementById("fb-name").textContent = fr.label;
+  document.getElementById("fb-em").textContent = "· " + fr.em;
+}
+
+// ============================================
+// STATE
+// ============================================
+const state = {
+  step: 0,
+  ratings: {},  // { "01": {understand, engage, again}, ... }
+};
+for (const p of ORDER) state.ratings[p] = {};
+
+const RESTORE_KEY = "cycle1b_survey_inflight_v1";
+try {
+  const saved = JSON.parse(localStorage.getItem(RESTORE_KEY) || "null");
+  if (saved && saved.step !== undefined) Object.assign(state, saved);
+} catch {}
+function persist() {
+  localStorage.setItem(RESTORE_KEY, JSON.stringify(state));
+}
+
+const STEPS = [
+  "welcome",
+  "rate_01",
+  "rate_02",
+  "rate_03",
+  "rate_04",
+  "rate_05",
+  "result",
+];
+
+function render() {
+  const pct = Math.round(((state.step + 1) / STEPS.length) * 100);
+  document.getElementById("progress-fill").style.width = pct + "%";
+  document.getElementById("progress-label").textContent = `Step ${state.step + 1} of ${STEPS.length}`;
+  const step = STEPS[state.step];
+  const stage = document.getElementById("stage");
+
+  if (step === "result") {
+    document.getElementById("progress-wrap").style.display = "none";
+    document.getElementById("nav").style.display = "none";
+  } else {
+    document.getElementById("progress-wrap").style.display = "";
+    document.getElementById("nav").style.display = "";
+  }
+
+  if (step === "welcome") stage.innerHTML = sceneWelcome();
+  else if (step.startsWith("rate_")) stage.innerHTML = sceneRate(step.slice(5));
+  else if (step === "result") {
+    stage.innerHTML = sceneResult();
+    // Fire-and-forget POST to Google Sheets (if configured)
+    setTimeout(() => submitToSheets(buildRecord()), 0);
+  }
+
+  bind(step);
+  updateNav();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function sceneWelcome() {
+  const noFraming = !FRAMINGS[heldFraming];
+  return `
+    <div class="scene">
+      <div class="eyebrow">Cycle 1B · Interaction Paradigm Survey</div>
+      <h1>Which way of interacting worked best for you?</h1>
+      <div class="lede">
+        You've now experienced five different ways of interacting with the planet's data — all using the same language you chose as strongest in the previous survey. This part asks you to rate each interaction style. It takes about 5 minutes.
+      </div>
+      ${noFraming ? `
+        <div class="warning">
+          <b>No framing carried over.</b> This survey expects to be launched from the Cycle 1A survey, which determines your strongest framing. You can still proceed, but the result won't be linked to a specific framing. Add <code>?framing=A</code> (or B / C / D / E) to the URL if you want to mark which framing is being held constant.
+        </div>
+      ` : `
+        <div class="lede" style="background: var(--bg-soft); padding: 14px 18px; border-radius: 10px; color: var(--ink);">
+          <b>Held constant for you:</b> <b>${FRAMINGS[heldFraming].label}</b>  ·  <em>${FRAMINGS[heldFraming].em}</em>. All five interactions used this framing.
+        </div>
+      `}
+    </div>
+  `;
+}
+
+function sceneRate(p) {
+  const par = PARADIGMS[p];
+  const data = state.ratings[p] || {};
+  const idx = ORDER.indexOf(p) + 1;
+  const likertHtml = (q) => `
+    <div class="q" data-qid="${q.id}">
+      <div class="label">${q.label}</div>
+      <div class="likert" data-likert="${q.id}">
+        ${[1,2,3,4,5].map(n => `<button data-v="${n}" class="${data[q.id] === n ? "on" : ""}"><span class="num">${n}</span></button>`).join("")}
+      </div>
+      <div class="likert-ends"><span>${q.endsLeft}</span><span>${q.endsRight}</span></div>
+    </div>`;
+  return `
+    <div class="scene">
+      <div class="eyebrow">Interaction ${idx} of 5</div>
+      <div class="paradigm-head">
+        <div class="badge">${p}</div>
+        <div>
+          <div class="nm">${par.label}</div>
+          <div class="em">${par.em}</div>
+        </div>
+      </div>
+      <div class="lede"><b>Remember the version that was…</b> ${par.description}</div>
+      ${QUESTIONS.map(likertHtml).join("")}
+    </div>
+  `;
+}
+
+function computeResult() {
+  const scores = ORDER.map(p => {
+    const r = state.ratings[p] || {};
+    const vals = QUESTIONS.map(q => r[q.id]).filter(v => v !== undefined);
+    const avg = vals.length ? vals.reduce((s,v) => s+v, 0) / vals.length : 0;
+    return { p, avg, raw: r };
+  });
+  scores.sort((a, b) => b.avg - a.avg);
+  return scores;
+}
+
+function sceneResult() {
+  const scores = computeResult();
+  const winner = scores[0];
+  const wPar = PARADIGMS[winner.p];
+  const heldNm = FRAMINGS[heldFraming] ? FRAMINGS[heldFraming].label : "(no framing carried)";
+  const maxAvg = 5;
+  const rows = scores.map((s, i) => {
+    const par = PARADIGMS[s.p];
+    const pct = (s.avg / maxAvg) * 100;
+    const chips = QUESTIONS.map(q => {
+      const v = s.raw[q.id];
+      return `<span class="sub-chip"><b>${q.short}</b> ${v !== undefined ? v : '–'}</span>`;
+    }).join('');
+    return `
+      <div class="score-row ${i === 0 ? "top" : ""}">
+        <div class="badge">${s.p}</div>
+        <div>
+          <div class="nm">${par.label.split(" · ")[1]}</div>
+          <div class="sub">${par.em}</div>
+          <div class="bar-row">
+            <div class="bar"><div class="fill" style="width: ${Math.max(2, pct)}%"></div></div>
+          </div>
+          <div class="sub-chips">${chips}</div>
+        </div>
+        <div class="v">${s.avg.toFixed(2)}</div>
+      </div>
+    `;
+  }).join("");
+
+  localStorage.removeItem(RESTORE_KEY);
+
+  return `
+    <div class="result-winner">
+      <div class="small">YOUR STRONGEST INTERACTION IS</div>
+      <div class="number">${winner.p}</div>
+      <div class="nm">${wPar.label.split(" · ")[1]}</div>
+      <div class="em">${wPar.em}</div>
+    </div>
+    <div id="sync-banner" class="sync-banner off">Cloud sync not configured · local download only.</div>
+    <div class="scene">
+      <h2>Your scorecard</h2>
+      <div class="lede">Average of four ratings per interaction. Highest score wins. Language framing held constant: <b>${heldNm}</b>.</div>
+      <div class="dim-legend">
+        <span><b>Cog</b> = Cognitive (understanding)</span>
+        <span><b>Aff</b> = Affective (engagement)</span>
+        <span><b>Mem</b> = Memorability (recall)</span>
+        <span><b>Int</b> = Intentional (use again / share)</span>
+      </div>
+      <div class="scoreboard">${rows}</div>
+
+      <div class="result-actions">
+        <button class="secondary" onclick="downloadCSV()">↓ Download my responses (CSV)</button>
+        <button class="secondary" onclick="downloadJSON()">↓ Download my responses (JSON)</button>
+        <button class="primary" onclick="finish()">Done · Thank you!</button>
+      </div>
+
+      <div class="result-note">
+        <b>What this combination means.</b> For you, the strongest cell in the Cycle 1 design space is <b>${winner.p} · ${wPar.label.split(" · ")[1]}</b> paired with <b>${heldNm}</b>. This is one cell of the 5 × 5 grid — the cell your responses identify as the most resonant combination of language and interaction.
+      </div>
+    </div>
+  `;
+}
+
+function bind(step) {
+  if (step.startsWith("rate_")) {
+    const p = step.slice(5);
+    if (!state.ratings[p]) state.ratings[p] = {};
+    document.querySelectorAll("[data-likert]").forEach(group => {
+      const id = group.dataset.likert;
+      group.querySelectorAll("button").forEach(btn => {
+        btn.addEventListener("click", () => {
+          group.querySelectorAll("button").forEach(b => b.classList.remove("on"));
+          btn.classList.add("on");
+          state.ratings[p][id] = parseInt(btn.dataset.v);
+          persist(); updateNav();
+        });
+      });
+    });
+  }
+}
+
+function canAdvance() {
+  const step = STEPS[state.step];
+  if (step === "welcome") return true;
+  if (step.startsWith("rate_")) {
+    const p = step.slice(5);
+    const r = state.ratings[p] || {};
+    return QUESTIONS.every(q => r[q.id] !== undefined);
+  }
+  return true;
+}
+
+function updateNav() {
+  const back = document.getElementById("back-btn");
+  const next = document.getElementById("next-btn");
+  back.disabled = state.step === 0;
+  if (STEPS[state.step + 1] === "result") {
+    next.textContent = "See my result ✓";
+    next.classList.add("submit"); next.classList.remove("next");
+  } else {
+    next.textContent = "Next →";
+    next.classList.add("next"); next.classList.remove("submit");
+  }
+  next.disabled = !canAdvance();
+}
+
+document.getElementById("back-btn").addEventListener("click", () => {
+  if (state.step > 0) { state.step--; persist(); render(); }
+});
+document.getElementById("next-btn").addEventListener("click", () => {
+  if (!canAdvance()) return;
+  if (state.step < STEPS.length - 1) { state.step++; persist(); render(); }
+});
+
+// ============================================
+// DOWNLOAD
+// ============================================
+function buildRecord() {
+  const scores = computeResult();
+  return {
+    survey: "Cycle1B_Interaction",
+    participant_id: carriedPid,
+    timestamp: new Date().toISOString(),
+    demographics: { ...carriedDemo },
+    held_framing: heldFraming || null,
+    ratings: { ...state.ratings },
+    scores: scores.map(s => ({ paradigm: s.p, average: s.avg })),
+    winner: scores[0].p,
+  };
+}
+
+function downloadJSON() {
+  const r = buildRecord();
+  const blob = new Blob([JSON.stringify(r, null, 2)], { type: "application/json" });
+  download(blob, `Cycle1B_${r.participant_id}_${(carriedDemo.from || "").replace(/[^\w]/g,'-')}.json`);
+}
+
+function downloadCSV() {
+  const r = buildRecord();
+  const lines = [];
+  lines.push("section,key,value");
+  lines.push(`meta,survey,${csv(r.survey)}`);
+  lines.push(`meta,participant_id,${csv(r.participant_id)}`);
+  lines.push(`meta,timestamp,${csv(r.timestamp)}`);
+  lines.push(`meta,held_framing,${csv(r.held_framing)}`);
+  lines.push(`demographics,age,${csv(r.demographics.age)}`);
+  lines.push(`demographics,gender,${csv(r.demographics.gender)}`);
+  lines.push(`demographics,from,${csv(r.demographics.from)}`);
+  for (const p of ORDER) {
+    const pr = r.ratings[p] || {};
+    for (const q of QUESTIONS) {
+      lines.push(`rating,${p}_${q.id},${csv(pr[q.id])}`);
+    }
+    const s = r.scores.find(s => s.paradigm === p);
+    lines.push(`score,${p}_average,${csv(s ? s.average.toFixed(3) : "")}`);
+  }
+  lines.push(`result,winner,${csv(r.winner)}`);
+  const blob = new Blob([lines.join("\n")], { type: "text/csv" });
+  download(blob, `Cycle1B_${r.participant_id}_${(carriedDemo.from || "").replace(/[^\w]/g,'-')}.csv`);
+}
+
+function csv(v) {
+  if (v === undefined || v === null) return "";
+  const s = String(v).replace(/"/g, '""');
+  return /[",\n]/.test(s) ? `"${s}"` : s;
+}
+function download(blob, filename) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+// ============================================
+// SUBMIT TO GOOGLE SHEETS (fire-and-forget)
+// ============================================
+function setSyncBanner(state, text) {
+  const el = document.getElementById("sync-banner");
+  if (!el) return;
+  el.className = "sync-banner " + state;
+  el.innerHTML = (state === "sending" ? '<span class="spinner"></span> ' : "") + text;
+}
+
+function submitToSheets(record) {
+  if (!SHEETS_ENDPOINT) {
+    setSyncBanner("off", "Cloud sync not configured · local download only.");
+    return;
+  }
+  setSyncBanner("sending", "Saving to Google Sheets…");
+  fetch(SHEETS_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(record),
+  }).then(() => {
+    setSyncBanner("ok", "✓ Saved to Google Sheets.");
+  }).catch((e) => {
+    setSyncBanner("err", "⚠ Couldn't reach Google Sheets — your data is still in the downloads below.");
+    console.warn("Sheets POST failed:", e);
+  });
+}
+
+function finish() {
+  downloadJSON();
+  setTimeout(() => {
+    document.body.innerHTML = `
+      <div style="text-align:center; padding: 80px 24px; max-width: 520px; margin: 0 auto;">
+        <div style="font-size: 72px; margin-bottom: 18px;">🌍</div>
+        <h1 style="font-family: 'Source Serif Pro', serif; font-size: 32px; font-weight: 600; color: var(--ink); margin-bottom: 12px;">Thank you</h1>
+        <p style="font-size: 16px; color: var(--ink-soft); line-height: 1.6;">Your responses have been downloaded. The researcher will collect the files. You can close this tab now.</p>
+      </div>
+    `;
+    document.body.style.background = "var(--bg-page)";
+  }, 700);
+}
+
+render();
+</script>
+</body>
+</html>
